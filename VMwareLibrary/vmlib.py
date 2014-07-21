@@ -1,12 +1,6 @@
 from __future__ import print_function
 from subprocess import Popen
 from subprocess import PIPE
-from time import time
-from time import sleep
-from telnetlib import Telnet
-from socket import error as SocketError
-import ConfigParser
-import inspect
 import sys
 
 def log(msg):
