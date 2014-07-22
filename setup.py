@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="robot-vmlib",
-    description="",
+    description="Remote Robot Framework library that wraps around VMware commandline utility vmrun for managing virtual environment",
     version="0.1",
 
     author="Miroslav Beka",
@@ -13,7 +13,6 @@ setup(
 
     packages=["VMwareLibrary"],
     package_dir={"VMwareLibrary":"VMwareLibrary"},
-    package_data={"VMwareLibrary":["vmware.cfg"]},
 
     entry_points = {
       "console_scripts" : ["robot-vmlib = VMwareLibrary.__main__:main"]
