@@ -335,3 +335,12 @@ class Library(object):
 
         self._run("revertToSnapshot", cfg, *args) 
         return self._run("start", cfg)
+
+    def install_tools(self, cfg):
+        """VMware api command implementation
+
+        GENERAL COMMANDS         PARAMETERS      DESCRIPTION
+        ----------------         ----------      -----------
+        installTools             path to vmx     Mount vmtools disc
+        """
+        return self._run("installTools", cfg)
