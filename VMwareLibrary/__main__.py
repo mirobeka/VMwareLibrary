@@ -4,15 +4,17 @@ from __future__ import print_function
 from robotremoteserver import RobotRemoteServer
 from ConfigParser import ConfigParser as cp
 from argparse import ArgumentParser
-import vmlib
 import logging
+import vmlib
+import sys
 import os
 
-def log(msg):
-    stdout = sys.stdout
-    sys.stdout = sys.__stdout__
-    print(msg)
-    sys.stdout = stdout
+def configure_logging():
+    logging.basicConfig(
+            format="%(asctime)s::[%(name)s.%(levelname)s] %(message)s",
+            datefmt="%I:%M:%S %p",
+            level='DEBUG')
+    logging.StreamHandler(sys.__stdout__)
 
 def parse_conf_to_dict(conf_path):
     parser = cp()
@@ -20,17 +22,20 @@ def parse_conf_to_dict(conf_path):
         parser.read(conf_path)
     except ConfigParser.Error, e:
         log("EXCEPTION: Parsing of {} failed.\n{}".format(conf_path, e.message))
-        exit(1)
+        sys.exit(1)
 
     d = dict(parser._sections)
     for k in d:
         d[k] = dict(**d[k])
         d[k].pop('__name__', None)
     return d
-  
 
 def main():
     """ Main entry point for vmconnector"""
+
+    # get configured logger
+    logger = logging.getLogger("MAIN")
+
     # define arguments
     parser = ArgumentParser(prog="vmconnector", description="Robot Remote Server implementing VMware commands")
     # server configuration
@@ -48,10 +53,11 @@ def main():
     args = parser.parse_args()
   
     if args.vmpass == "" :
-        print("VMware password / username not in environment variables")
-        print("Use vmconnector --vmpass PASSWORD --vmuser USERNAME")
-        exit(1)
+        logger.error("VMware password not in environment variables")
+        logger.error("Use vmconnector --vmpass PASSWORD")
+        sys.exit(1)
 
+    # save password into config dictionary!
     conf = parse_conf_to_dict(args.conf_path)
     conf["vm_server"]["vmpass"] = args.vmpass
   
@@ -63,4 +69,5 @@ def main():
         server.stop_remote_server()
 
 if __name__ == "__main__":
+    configure_logging()
     main()
