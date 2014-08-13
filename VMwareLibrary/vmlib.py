@@ -7,13 +7,11 @@ from telnetlib import Telnet
 from socket import error as SocketError
 import ConfigParser
 import inspect
+import logging
 import sys
 
-def log(msg):
-    stdout = sys.stdout
-    sys.stdout = sys.__stdout__
-    print(msg)
-    sys.stdout = stdout
+
+logger = logging.getLogger("VMLIB")
 
 class Library(object):
     """Factory creates vm commands from classes"""
@@ -48,7 +46,7 @@ class Library(object):
 
     def _run(self, cmd_name, cfg, *args):
         cmd = self._build_vm_command(cmd_name, cfg, *args)
-        log(cmd)
+        logger.debug(cmd)
         returncode, out, err = self._vm_execute(cmd)
 
         if returncode != 0:
