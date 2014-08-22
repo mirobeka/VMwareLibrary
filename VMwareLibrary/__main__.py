@@ -39,7 +39,7 @@ def main():
     # define arguments
     parser = ArgumentParser(prog="vmconnector", description="Robot Remote Server implementing VMware commands")
     # server configuration
-    parser.add_argument("-i","--ip", required=False, dest="ip", default="localhost")
+    parser.add_argument("-i","--ip", required=False, dest="ip", default="0.0.0.0")
     parser.add_argument("-p", "--port", required=False, type=int, dest="port", default=8000)
   
     # password for VMware server
