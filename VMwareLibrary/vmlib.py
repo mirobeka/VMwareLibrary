@@ -74,7 +74,7 @@ class Library(object):
         fileExistsInGuest        Name of cfg      Check if a file exists in Guest OS
                                  Path to file in guest
         """
-        return self._run("fileExistsInGuest", cfg, args)
+        return self._run("fileExistsInGuest", cfg, *args)
 
     def directory_exists_in_guest(self, cfg, *args):
         """
@@ -83,7 +83,7 @@ class Library(object):
         directoryExistsInGuest   Path to vmx file     Check if a directory exists in Guest OS
                                  Path to directory in guest
         """
-        return self._run("directoryExistsInGuest", cfg, args)
+        return self._run("directoryExistsInGuest", cfg, *args)
 
     def set_shared_folder_state(self, cfg, *args):
         """
@@ -94,7 +94,7 @@ class Library(object):
                                  Host path
                                  writable | readonly
         """
-        return self._run("setSharedFolderState", cfg, args)
+        return self._run("setSharedFolderState", cfg, *args)
 
     def add_shared_folder(self, cfg, *args):
         """
@@ -104,7 +104,7 @@ class Library(object):
                                  Share name
                                  New host path
         """
-        return self._run("addSharedFolder", cfg, args)
+        return self._run("addSharedFolder", cfg, *args)
 
     def remove_shared_folder(self, cfg, *args):
         """
@@ -113,7 +113,7 @@ class Library(object):
         removeSharedFolder       Path to vmx file     Remove a Host-Guest shared folder
                                  Share name
         """
-        return self._run("removeSharedFolder", cfg, args)
+        return self._run("removeSharedFolder", cfg, *args)
 
     def enable_shared_folders(self, cfg, *args):
         """
@@ -224,7 +224,6 @@ class Library(object):
         Path in guest            Path on host
         """
         return self._run("CopyFileFromGuestToHost", cfg, *args)
-
 
     def rename_file_in_guest(self, cfg, *args):
         """
